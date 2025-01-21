@@ -56,3 +56,11 @@ Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal:
 | `pnpm new-post <nombre-de-archivo>` | Crea una nueva entrada                            |
 | `pnpm astro ...`                    | Ejecuta comandos CLI como `astro add`, `astro check` |
 | `pnpm astro --help`                 | Obtén ayuda para usar el CLI de Astro             |
+
+
+## Informacion que no se menciona 
+
+Las imagenes para tus archivos MD deben de ser .jpeg u ejemplo es el siguinte 
+```
+![Pasted image](./Pasted%20image%2020250115224046.jpeg)
+```
