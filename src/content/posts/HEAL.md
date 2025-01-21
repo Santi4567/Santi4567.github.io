@@ -15,7 +15,7 @@ $ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.46 -oG allports
 ```
 
 
-![Firts](/src/content/posts/Images/20250115222449.png)
+![Firts](/src/content/posts/Images/Pasted%20image%2020250115222449.png)
 
 El reconocimiento no muestra que tenemos dos puertos abiertos, que son los siguientes:  
 ```bash
@@ -29,7 +29,7 @@ Para saber que tipo de servicio están ejecutándose a través de esto puertos  
 $ namp -sSV -p22,80 10.10.11.46 -oN Ports
 ```
 
-![[Pasted image 20250115222500.png]]
+![[Pasted image](/src/content/posts/Images/Pasted%20image%2020250115222500.png)
 Ok tenemos `ssh` y `nginx` con la versión `1.18.0`  la cual esta un poco desactualizada pero en este caso no supone un riego 
 
 ## Visitando la pagina 
