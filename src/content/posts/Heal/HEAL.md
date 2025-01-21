@@ -3,6 +3,7 @@ title: HEAL HTB
 published: 2025-01-20
 description: Resolviendo la maquina Heal de HackTheBox.
 tags: [HTB, Linux, RCE, LFI, SSH]
+image: "./PortadaHeal.jpg"
 category: WriteUp
 draft: False
 ---
@@ -368,7 +369,7 @@ Y `BINGO` el servicio lo esta ejecutando el usuario de `root`
 
 ![Pasted image](./Pasted%20image%2020250120210849.jpeg)
 
-
+![Pwned](./PwnedHeal.jpg)
 
 ## Conclusión 
 
