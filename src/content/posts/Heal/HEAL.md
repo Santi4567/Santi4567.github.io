@@ -15,7 +15,7 @@ $ nmap -p- --open -sS --min-rate 5000 -vvv -n -Pn 10.10.11.46 -oG allports
 ```
 
 
-![Firts](/src/content/posts/Images/Pasted%20image%2020250115222449.png)
+![Firts](./Pasted%20image%2020250115222425.jpeg)
 
 El reconocimiento no muestra que tenemos dos puertos abiertos, que son los siguientes:  
 ```bash
