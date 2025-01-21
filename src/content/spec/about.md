@@ -21,7 +21,7 @@ Además de mi trabajo en HTB, he desarrollado scripts y herramientas para automa
 
 ## Contacto
 - Email: [tu_email@example.com]
-- GitHub: [github.com/Santi4567]
+- GitHub: [[github.com/Santi4567](https://github.com/Santi4567)]
 
 
 ::github{repo="Santi4567/Santi4567.github.io"}
