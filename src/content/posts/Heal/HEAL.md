@@ -7,7 +7,7 @@ image: "./PortadaHeal.jpg"
 category: WriteUp
 draft: False
 ---
-## Reconocimiento
+# Reconocimiento
 
 Empezaremos el reconocimiento de la maquina para saber que puerto estna abiertos y que servicios estan corriendo, usando nuestra herramienta de confianza la cual es __NMAP__ 
 
