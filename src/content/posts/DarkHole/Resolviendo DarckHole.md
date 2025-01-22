@@ -1,8 +1,9 @@
 ---
-title: HEAL HTB
+title: DarkHole
 published: 2025-01-20
-description: Resolviendo la maquina Heal de HackTheBox.
-tags: [Linux ,Easy ,VulnHub ,SQLI ]
+description: Resolviendo la maquina DarkHole de VulnHub.
+image: "./PortadaHeal.jpg"
+tags: [Linux ,Easy ,VulnHub ,SQLI, EJPTv2 ]
 category: WriteUp
 draft: False
 ---
