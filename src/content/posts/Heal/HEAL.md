@@ -375,4 +375,4 @@ Y `BINGO` el servicio lo esta ejecutando el usuario de `root`
 
 La maquina fue vulnerable por un `LFI` , el cual esta ubicado al momento de exportar el PDF, y este mismo nos permitió listar el archivo `passwd` y la base de datos de `LiveSurvey`  y así poder ganar acceso a la maquina 
 
-Tener cuidado cuando una pagina tenga una función de descargar archivos por que por lo general no esta sanitizado.
+Tener cuidado cuando una pagina tenga una función de descargar archivos por que por lo general no esta sanitizado. 
