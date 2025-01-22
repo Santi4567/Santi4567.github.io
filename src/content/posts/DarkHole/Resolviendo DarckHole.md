@@ -2,7 +2,7 @@
 title: DarkHole
 published: 2025-01-21
 description: Resolviendo la maquina DarkHole de VulnHub.
-image: "./PortadaHeal.jpg"
+image: "./Portada.jpg"
 tags: [Linux ,Easy ,VulnHub , SQLI, EJPTv2 ]
 category: WriteUp
 draft: False
