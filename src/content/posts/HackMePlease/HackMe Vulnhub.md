@@ -168,16 +168,16 @@ Volveremos a la pagina y nos dirigiremos hacia la sección de "add documnets"
 ![paste](./18.jpeg)
 
 aquí cargaremos nuestro documento cmd.php 
-![paste](./19.jpeg)
-
-Se pondrá la pagina en blanco pero ya subió el archivo, simplemente regresa al inicio de la pagina 
 ![paste](./20.jpeg)
 
-Bien el documento de serachsploit también menciona que veamos el identificador del archivo, en este caso es el numero 4, después de saber el numero identificador del archivo copiaremos la ruta de donde se almacenan los archivos y modificaremos en la parte del link "documnet_id" por nuestro identificador de nuestro archivo 
-
+Se pondrá la pagina en blanco pero ya subió el archivo, simplemente regresa al inicio de la pagina 
 ![paste](./21.jpeg)
+
+Bien el documento de serachsploit también menciona que veamos el identificador del archivo, en este caso es el numero 4, después de saber el numero identificador del archivo copiaremos la ruta de donde se almacenan los archivos y modificaremos en la parte del link "documnet_id" por nuestro identificador de nuestro archivo 
+![paste](./24.jpeg)
 ![paste](./22.jpeg)
-![paste](./23.jpeg)
+![paste](./25.jpeg)
+
 
 # Dentro del servidor 
 
