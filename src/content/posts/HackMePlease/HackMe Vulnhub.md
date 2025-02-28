@@ -153,15 +153,15 @@ WHERE id = 1;
 # Dentro de SeedDMS
 
 Y adentro del Panel de Administrador podremos encontrar varias funciones 
-![paste](./14.jpeg)
+![paste](./15.jpeg)
 Pero recordad los resultados que encontramos en Searchsploit, el cual contaba con una vulnerabilidad de RCE 
 
-![paste](./15.jpeg)
-
 ![paste](./16.jpeg)
-Ok es una terminal web con PHP algo muy sencillo de hacer, copiaremos el código de php, y lo pegaremos en un archivo, después lo subiremos al SeedDMS 
 
 ![paste](./17.jpeg)
+Ok es una terminal web con PHP algo muy sencillo de hacer, copiaremos el código de php, y lo pegaremos en un archivo, después lo subiremos al SeedDMS 
+
+![paste](./19.jpeg)
 
 Volveremos a la pagina y nos dirigiremos hacia la sección de "add documnets"
 
