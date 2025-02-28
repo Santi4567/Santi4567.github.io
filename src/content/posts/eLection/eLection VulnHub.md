@@ -1,5 +1,5 @@
 ---
-title: DarkHole
+title: eLection
 published: 2025-01-24
 description: Resolviendo la maquina eLection de VulnHub.
 image: "./Portada.jpeg"
