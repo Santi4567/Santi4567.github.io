@@ -9,8 +9,6 @@ draft: False
 ---
 
 
-![paste](./Images1/1.jpeg)
-
 
 # Reconocimiento 
 
