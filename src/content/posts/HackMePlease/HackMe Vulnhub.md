@@ -5,7 +5,6 @@ description: Resolviendo la maquina DarkHole de VulnHub.
 image: "./portada.jpg"
 tags: [Linux ,Easy , RCE, EJPTv2, Arbitrary File Upload ]
 category: WriteUp
-category: VulnHub
 draft: False
 ---
 
