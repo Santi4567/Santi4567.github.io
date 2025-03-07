@@ -1,6 +1,6 @@
 ---
 title: CAT HTB
-published: 2025-01-21
+published: 2025-03-07
 description: Resolviendo la maquina DarkHole de VulnHub.
 image: "./Images1/1.jpeg"
 tags: [Linux ,Medium ,HTB , SQLite, SQLI , XSS, Chisel, Git-repo ]
