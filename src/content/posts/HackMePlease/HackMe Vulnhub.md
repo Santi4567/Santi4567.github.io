@@ -1,6 +1,6 @@
 ---
 title: Hack Me Please
-published: 2025-01-21
+published: 2025-02-28
 description: Resolviendo la maquina DarkHole de VulnHub.
 image: "./portada.jpg"
 tags: [Linux ,Easy ,VulnHub , RCE, EJPTv2, Arbitrary File Upload ]
