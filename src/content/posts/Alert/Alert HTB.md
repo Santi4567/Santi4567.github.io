@@ -87,7 +87,7 @@ Ok ya tenemos un vector de ataque, no podemos robar cookies  de sección por que
 
 # Ataque XSS y SSRF 
 
-Bien ya sabemos que podemos inyectar código JS y no podemos robar cookies de sección, entonces nuestro objetivo será visualizar el código fuente de  la pagina, par lo cual ocuparemos este script, estp ejecuta una accion involuntaria de quien lo vea, esto se le conoce como un ataque de tipo SSRF
+Bien ya sabemos que podemos inyectar código JS y no podemos robar cookies de sección, entonces nuestro objetivo será visualizar el código fuente de  la pagina, par lo cual ocuparemos este script, esto ejecuta una accion involuntaria de un usuario, esto se le conoce como un ataque de tipo SSRF
 
 ```js
 <script>
