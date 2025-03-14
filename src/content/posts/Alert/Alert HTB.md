@@ -233,12 +233,19 @@ y si somos observadores existe una carpeta llamada ``config`` la cual tiena una 
 
 ![paste](./Images/23.jpeg)
 
-nano 
+Con nano podemos modifiacra la web shell con nuestra Ip y un puerto en especifico
 
 ![paste](./Images/24.jpeg)
+
+Ponemos la ruta en el navegador 
+
 ![paste](./Images/25.jpeg)
 
+Y con NETCAT recibimos la reverceshell por el puerto que especificamos 
+
 ![paste](./Images/26.jpeg)
+
+Y con esto ya somos ROOT , Eres todo un Crack 
 
 Tratamiento de la ReverceShell
 
