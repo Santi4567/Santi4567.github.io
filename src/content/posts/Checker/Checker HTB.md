@@ -2,7 +2,7 @@
 title: Checker HTB
 published: 2025-05-16
 description: Resolviendo la maquina Checker de HTB.
-image: "./Images/Portada.jpg"
+image: "./images/Portada.jpg"
 tags: [Linux ,Hard, CVE, C, Binarios, Ingenieria inversa ]
 category: WriteUp
 draft: False
