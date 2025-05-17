@@ -188,7 +188,7 @@ Este tipo de hash que inicia con ' $ 2 a $ '  suele ser de tipo `bcrypt`
 Bien ahora que sabemos el tipo de encriptación procedemos a usar `john` para romperla 
 
 ```bash
- john --format=bcrypy hash --wordlist=/user/share/wordlist/rockyou.txt
+ john --format=bcrypt hash --wordlist=/user/share/wordlist/rockyou.txt
 ```
 
 Y el resultado es 147258369
