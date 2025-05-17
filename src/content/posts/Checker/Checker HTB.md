@@ -60,7 +60,7 @@ cuando entramos por este puerto tenemos un inicio de sección nada mas y la plat
 ![paste](./images/2.jpeg)
 
 con la siguiente versión : (23.10.2)
-![paste](./Images/3.jpeg)
+![paste](./images/3.jpeg)
 
 El cual es vulnerable a un LFR(Local File Read ) via SSRF (Serve Side Request Forgery) por lo cual ya sabemos donde podemos atacar, pero esto solo funciona si tenemos una cuenta y si eres observador, no podemos registrarnos 
 
@@ -68,13 +68,13 @@ El cual es vulnerable a un LFR(Local File Read ) via SSRF (Serve Side Request Fo
 
 Por el puerto 8080 tenemos un gestor de contraseñas llamado Teampass, por desgracia no tenemos como verificar la versión del mismo pero es de código abierto 
 
-![paste](./Images/4.jpeg)
+![paste](./images/4.jpeg)
 
 
 ## SQLI de Teampass
 
 
-![paste](./Images/5.jpeg)
+![paste](./images/5.jpeg)
 
 
 Realizando una búsqueda rápida por Google, podemos encontrar un vulnerabilidad de SQLI a través de la misma API del Teampass donde el campo de login es vulnerable -> https://security.snyk.io/vuln/SNYK-PHP-NILSTEAMPASSNETTEAMPASS-3367612  
@@ -118,7 +118,7 @@ done
 
 como tal la SQLI que emplea es la siguiente 
 
-```
+```sql
 "none' UNION SELECT id, '$2y$10$u5S27wYJCVbaPTRiHRsx7.iImx/WxRA8/tKvWdaWQ/iDuKlIkMbhq', (url), private_key, personal_folder, fonction_id, groupes_visibles, groupes_interdits, 'foo' FROM teampass_users WHERE login='admin"
 ```
 
@@ -134,27 +134,27 @@ recuerda instalar jq para que funcione
 apt install jq
 ```
 
-![paste](./Images/6.jpeg)
+![paste](./images/6.jpeg)
 
 Y cuando lo ejecutemos el script, este nos reporta que tiene 2 usuarios validos dentro de Teampass
 
-![paste](./Images/7.jpeg)
+![paste](./images/7.jpeg)
 
 El tipo de encripta miento es Bycript por ende podemos usar ya sea john para romper las contraseñas 
 
 De las dos contraseñas la unca que john pudo descifrar es la de bob 
 
-![paste](./Images/8.jpeg)
+![paste](./images/8.jpeg)
 
 con esto podemos entrar al Teampass como el usuario bob, dentro de esta cuenta tenemos las credenciales para entrar al BookStack y una de ssh que ya te adelanto que si son pero, necesitamos  un código de verificación 
 
-![paste](./Images/9.jpeg)
+![paste](./images/9.jpeg)
 
-![paste](./Images/10.jpeg)
+![paste](./images/10.jpeg)
 
 # BookStack SSRF -> LFR
 
-![paste](./Images/python.jpeg)
+![paste](./images/python.jpeg)
 
 Bien como sabemos BookSatck tiene una vulnerabilidad la cual a través de php chains podemos leer archivos de la maquina, en GitHub podemos encontrar el exploit pero 
 
@@ -162,7 +162,7 @@ Bien como sabemos BookSatck tiene una vulnerabilidad la cual a través de php ch
 
 ATENCION DEBEMOS MODIFICARLO para que el pyload lo mande en base64, ya que de otra manera no funcionara, para hacer esto busca el archivo de requestor.py dentro de la ruta `php_filter_chains_oracle_exploit/filters_chain_oracle/core`
 
-![paste](./Images/11.jpeg)
+![paste](./images/11.jpeg)
 
 Y remplázalo por el siguiente 
 
@@ -340,7 +340,7 @@ class Requestor:
 ```
 
 Después ejecuta el exploit de la siguiente manera
-![paste](./Images/12.jpeg)
+![paste](./images/12.jpeg)
 
 ```bash
 python3 filters_chain_oracle_exploit.py --target  "http://checker.htb/ajax/page/20/save-draft" --file /etc/passwd --verb PUT --parameter html --headers '{"X-CSRF-TOKEN":"","Content-Type":"application/x-www-form-urlencoded","Cookie":"bookstack_session="}'
@@ -352,14 +352,14 @@ Y cambia conforme a tus datos de esta manera
 Para obtener la url tendrás que crear un nuevo libro en BookStack y dentro de el un nuevo archivo y en este archivo es donde esta la vulnerabilidad.
 Siempre que escribas en el archivo este mandara la petición de guardar cambios , dentro de esta petición existe un parámetro llamado html que es vulnerable 
 
-![paste](./Images/14.jpeg)
-![paste](./Images/13.jpeg)
+![paste](./images/14.jpeg)
+![paste](./images/13.jpeg)
 
 --headers
-![paste](./Images/15.jpeg)
+![paste](./images/15.jpeg)
 
 y con esos cambio lo puedes ejecutar y así apuntar a archivos de la maquina 
-![paste](./Images/16.jpeg)
+![paste](./images/16.jpeg)
 
 
 
@@ -373,9 +373,9 @@ Pero para generar un código valido, tenemos que saber la clave secreta que lo g
 
  `/backup/home_backup/home/reader/.google_authenticator ` 
 
-![paste](./Images/17.jpeg)
+![paste](./images/17.jpeg)
 
-![paste](./Images/18.jpeg)
+![paste](./images/18.jpeg)
 
 Ahora bien para generar el código de verificación nos apoyaremos de este script de Python el cual generara el código que será valido por 30 segundos 
 
@@ -424,12 +424,12 @@ print(f"El código TOTP actual es: {codigo_totp}")
 
 y ahora si usando ssh conéctate como el usuario reader y la contraseña que esta en el Teampass, y rápidamente ejecuta el script de python para obtener el código de verificación  y así poder acceder a la maquina  
 
-![paste](./Images/19.jpeg)
+![paste](./images/19.jpeg)
 
 
 Y así obtenemos la primera Flag que corresponde al usuario reader
 
-![paste](./Images/20.jpeg)
+![paste](./images/20.jpeg)
 
 Recuerda hacerle tratamiento a la terminal para que puedas tener todas las funcionalidades normales
 ```bash
@@ -447,15 +447,15 @@ que como lo se?, yo se cosas hermano, no te creas
 
 puedes verlo al listar los permisos de sudo 
 
-![paste](./Images/21.jpeg)
+![paste](./images/21.jpeg)
 
 Que no sabes C no te preocupes yo tampoco, pero tampoco es difícil o es creo xd (Decia eso sin saber a que me enfrentaba)
 
-![paste](./Images/c.jpeg)
+![paste](./images/c.jpeg)
 
 Para esta escalada de privilegios tenemos el binario que se llama check-leak.sh el cual podemos ejecutar como root , dentro de este script se ocupa un binario el cual se llama check_leak al cual le haremos ingeniería inversa para sabe que hace  
 
-![paste](./Images/22.jpeg)
+![paste](./images/22.jpeg)
 
 ## check_leak con Ghidra
 
@@ -466,28 +466,28 @@ Ocupando ghidra al momento de pasarle el binario este nos mostrara las funciones
 	- notify_user
 
 
-![paste](./Images/23.jpeg)
+![paste](./images/23.jpeg)
 
 ## Flujo de trabajo de check_leak
 
 ### Inicio en main:
 - Verifica variables de entorno para credenciales de base de datos (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-	- ![paste](./Images/24.jpeg)
+	- ![paste](./images/24.jpeg)
 - Comprueba que se haya proporcionado exactamente un argumento (el nombre de usuario)
-	- ![paste](./Images/25.jpeg)
+	- ![paste](./images/25.jpeg)
 - Verifica que el nombre de usuario no supere los 20 caracteres
-	- ![paste](./Images/26.jpeg)
+	- ![paste](./images/26.jpeg)
 ### Consulta a la base de datos:
 
 - Llama a fetch_hash_from_db para obtener el hash de la contraseña del usuario
 - Si el usuario no existe, muestra "User not found in the database" y termina
-	- ![paste](./Images/27.jpeg)
+	- ![paste](./images/27.jpeg)
 ### Verificación de hash filtrado:
 
 - Llama a check_bcrypt_in_file para verificar si el hash está en "/opt/hash-checker/leaked_hashes.txt"
 - Si no está filtrado, muestra "User is safe" y termina
 - Si está filtrado, muestra "Password is leaked!"
-	- ![paste](./Images/28.jpeg)
+	- ![paste](./images/28.jpeg)
 ### Proceso de notificación cuando hay filtración:
 
 - Llama a write_to_shm pasando el hash como parámetro
@@ -497,7 +497,7 @@ Ocupando ghidra al momento de pasarle el binario este nos mostrara las funciones
 - Hace sleep(1) (espera 1 segundo)
 - Llama a notify_user pasando las credenciales de la base de datos y la clave de memoria compartida
 - Finalmente, llama a clear_shared_memory para limpiar la memoria compartida
-	- ![paste](./Images/29.jpeg)
+	- ![paste](./images/29.jpeg)
 
 Entre el write_to_him y el notify_user existe un intervalo de 1 segundo, y en medio de estas dos funciones existe una vulnerabilidad donde podemos inyectar comandos 
 
@@ -566,14 +566,14 @@ int main() {
 Que no sabes como ejecutar un archivo en C , no te preocupes es fácil, utilizaremos ``gcc``
 
 En tu carpeta personal crea con nano un archivo .c en el cual pondrás el Poc 
-![paste](./Images/30.jpeg)
+![paste](./images/30.jpeg)
  Una vez hecho eso usando gcc lo convertirás a un binario ejecutable
 
 ```bash 
 gcc -o Name_Binario File.c
 ```
 
-![paste](./Images/31.jpeg)
+![paste](./images/31.jpeg)
 
 Y a continuación ejecútalo
 de esta manera 
@@ -588,9 +588,9 @@ y en otra ventana ejecuta el check-leak.sh(Cabe aclarar que debe de ser un usari
 sudo ./check-leak.sh bob
 ```
 
-![paste](./Images/32.jpeg)
+![paste](./images/32.jpeg)
 
 
 Y felicidades eres Root , la verdad cuando tenemos binarios personalizados son un Joyita para vulnerarlos 
 
-![paste](./Images/33.jpeg)
+![paste](./images/33.jpeg)
