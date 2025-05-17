@@ -16,7 +16,7 @@ Que tal mi amigo que estas leyendo en este momento el WriteUp, hoy toca la maqui
 
 Para empezar cosas de rutina, es modificar el /etc/hosts para que pueda resolver la pagina 
 
-![paste](./Images/1.jpeg)
+![paste](./images/1.jpeg)
 
 # Fase de reconocimiento 
 
