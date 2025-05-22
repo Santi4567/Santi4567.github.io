@@ -2,7 +2,7 @@
 title: Checker HTB
 published: 2025-05-21
 description: Resolviendo la maquina Checker de HTB.
-image: "./images/Portada.jpg"
+image: "./images/Portada.jpeg"
 tags: [Linux, Chyper Injection, SSFR, RCE, boot, Fuzzing ]
 category: WriteUp
 draft: False
