@@ -1,7 +1,7 @@
 ---
-title: Titanic HTB
-published: 2025-06-03
-description: Resolviendo la maquina Titanic de HTB.
+title: Bucket HTB
+published: 2025-06-06
+description: Resolviendo la maquina Bucket de HTB.
 image: "./images/Portada.jpeg"
 tags: [Linux, AWS, LFI]
 category: WriteUp
