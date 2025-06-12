@@ -2,7 +2,7 @@
 title: Environment HTB
 published: 2025-06-12
 description: Resolviendo la maquina Eureka de HackTheBox.
-tags: [HTB, Fuzzing, Laravel bypass, abuso de subida de archivos, gpg ]
+tags: [HTB, Fuzzing, Laravel bypass, abuso de subida de archivos, gpg, Linux]
 image: "./images/Portada.jpeg"
 category: WriteUp
 draft: False
