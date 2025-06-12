@@ -197,7 +197,7 @@ Para elevar los privilegios y convertirnos en el usuario root, tenemos la capaci
 
 
 
-Explicación Detallada 
+# Explicación Detallada 
 
 Esta vulnerabilidad aprovecha la combinación de una configuración insegura de `sudo` que preserva variables de entorno peligrosas, específicamente `BASH_ENV`, junto con la capacidad de ejecutar un comando como usuario privilegiado.
 
