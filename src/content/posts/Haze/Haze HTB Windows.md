@@ -1,6 +1,6 @@
 ---
 title: Bucket HTB
-published: 2025-06-06
+published: 2025-06-20
 description: Resolviendo la maquina Haze de HTB.
 image: "./images/Portada.jpeg"
 tags: [Windows, CVE, Splunk, gMSA, ]
