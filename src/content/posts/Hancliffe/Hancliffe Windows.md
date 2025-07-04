@@ -424,7 +424,7 @@ Capturas del ataque:
 
 Elevamos el privilegio de Nuxeo a Clara 
 
-# ***Clara -> Develoment 
+# ***Clara -> Develoment*** 
 
 la Flag esta en el escritorios del Usuario Clara 
 
