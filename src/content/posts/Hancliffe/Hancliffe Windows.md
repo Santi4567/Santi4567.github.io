@@ -1256,7 +1256,7 @@ Volveremos a ejecutar el programa y a lanzar el script para llegar a este punto 
 
 ![paste](./images/91.jpeg)
 
-## ***Socket Reuse (recv)
+## ***Socket Reuse (recv)***
 
 Bien para reutilizar el socket tenemos que guardar esos 4 valores :
 ###  ***Guardando el descriptor del recv  Parámetro [in]***
@@ -1466,7 +1466,7 @@ y lo posicionamos al inicio de la pila de esta forma tenemos el descriptor del s
 
 ![paste](./images/108.jpeg)
 
-## ***LLamando á recv 
+## ***LLamando á recv*** 
 
 Ahora si procedemos a hacer la llamada al socket pero antes debemos de darle el formato que el quiere, o mas bien que necesita 
 
