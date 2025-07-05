@@ -92,7 +92,7 @@ Por los otros dos puertos, son dos paginas web, la primera es la de Ngix por def
 
 ![paste](./images/3.jpeg)
 
-Y la segunda es una pagina llamada Hasspas
+Y la segunda es una pagina llamada Hashpass
 
 ![paste](./images/4.jpeg)
 
@@ -133,7 +133,7 @@ Si probamos con esto nos daremos cuenta que si funciona:
 
 ![paste](./images/9.jpeg)
 
-Pero podemos comprobar todavía mas, TomCat usa u tipo de archivo llamado .jsp(JavaServer Pages) por lo cual si hacemos un fuzzing de este tipo de archivos encontraremos losa siguientes, que nos confirman por segunda vez que el servicio de TomaCat esta por detras 
+Pero podemos comprobar todavía mas, TomCat usa un tipo de archivo llamado .jsp(JavaServer Pages) por lo cual si hacemos un fuzzing de este tipo de archivos encontraremos las siguientes, que nos confirman por segunda vez que el servicio de TomaCat esta por detras 
 
 ![paste](./images/10.jpeg)
 
@@ -171,8 +171,13 @@ La inyección se basa en lo siguiente tenemos la ruta del login.jsp que en nuest
 ```
 http://10.10.11.115/maintenance/..;/login.jsp
 ```
+Dentro de esta ruta un archivo llamda:
 
-Después tenemos las `{}` que es donde ocurre la inyección, en este ejemplo es una operatoria, si la interpreta el resultado sera 49({7 * 7}) como es Java lo que esta corriendo por detrás solo se necesitan un juego de `{}` para que funcione  
+```
+/pwn$.xhtml
+```
+
+Seguido del signo $ podemos agregar un par de: `{}` que es donde ocurre la inyección, en este ejemplo es una operatoria, si la interpreta el resultado sera 49({7 * 7}) como es Java lo que esta corriendo por detrás solo se necesitan un juego de `{}` para que funcione  
 
 ![paste](./images/17.jpeg)
 
@@ -187,7 +192,7 @@ Bien ahora pondremos a prueba esto, y si lo interpreta tendremos como acceder al
 
 ![paste](./images/18.jpeg)
 
-Bingo my friend, esta realizando la operatoria, y como ejecutamos comando, pues la verdad es que no se, pero lo que si se es que en PyloadAllThings podemos saber como 
+Bingo my friend, esta realizando la operatoria, y ahora ¿Comó ejecutamos comandos?, pues la verdad es que no se, pero lo que si se es que en PyloadAllThings podemos saber como 
 
 https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/Java.md#java
 
@@ -224,7 +229,7 @@ Y como veremos ha funcionado:
 
 ## Entablando Revershell 
 
-Para entrar a la maquina y obtener una Powershell tiraremos de una repo de GitHub el de nishang
+Para entrar a la maquina y obtener una Powershell tiraremos de una repo de GitHub de nishang
 https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1
 
 Dentro del repositorio solamente ocuparemos el archivo **Invoke-PowerShellTcp.ps1** que esta dentro de la carpeta **shells**
@@ -233,11 +238,11 @@ Y para facilitarnos las cosas modificaremos el archivo para que se automatice un
 
 ![paste](./images/22.jpeg)
 
-Edita el archivo y hasta el final de todo ponemos esta linea con nuestra respectiva dirección y puerto :
+Edita el archivo y hasta el final del todo ponemos esta linea con nuestra respectiva dirección y puerto :
 
 ![paste](./images/23.jpeg)
 
-Bien, para que funcione, lo que vamos a realizar los siguientes pasos:
+Bien, para que funcione, realizaremos los siguintes pasos:
 
 **1 Usando un servidor en Python, tendrá que estar accesible nuestro archivo Ps1.ps1*** 
 
@@ -287,7 +292,7 @@ Y en el puerto donde estemos en esucha para recibir la Powershell la obtendremos
 
 Logramos entrar a la maquina, el problema esta en que este usuario llamado Nuxeo carece de privilegios, por lo cual, debemos de encontrar la forma de cambiar a otro usuario, una elevación de privilegios.
 
-Si listamos los servicios que están en escucha dentro de la maquina, o mas bien, servicios que solamente son visibles de manera local podemos tirar del confiadísimo **Netstat**, pero para tener mejor nuestro arsenal tenemos el Blog de este chaval que nos ayudara bastante:
+Si listamos los servicios que están en escucha dentro de la maquina, o mas bien, servicios que solamente son visibles de manera local, podemos tirar del confiadísimo **Netstat**, pero para tener mejor nuestro arsenal tenemos el Blog de este chaval que nos ayudara bastante:
 
 [How to Find Listening Ports with Netstat and PowerShell](https://adamtheautomator.com/netstat-port/
 
@@ -330,7 +335,7 @@ https://www.exploit-db.com/exploits/49587
 
 ## --------------------------Importante -------------------------------
 
-El script funciona con Python2.7 no con Python3, si aun lo tienes instalado, Muy bien, si no Deveras de descargar el código fuente y compilarlo, apóyate de una IA 
+El script funciona con Python2.7 no con Python3, si aun lo tienes instalado, Muy bien, si , Tendras de descargar el código fuente y compilarlo, apóyate de una IA 
 ## ----------------------------------------------------------------------
 
 
@@ -343,6 +348,8 @@ Bien pero como dije antes, la primera tarea es hacer que ese puerto este abierto
 Lo descargamos y lo renombramos a chisel.exe.gz 
 
 ![paste](./images/30.jpeg)
+
+Por ultimo lo descomprimimos con Gunzip:
 
 ![paste](./images/31.jpeg)
 
@@ -424,7 +431,7 @@ Capturas del ataque:
 
 Elevamos el privilegio de Nuxeo a Clara 
 
-# ***Clara -> Develoment*** 
+# ***Clara -> development*** 
 
 la Flag esta en el escritorios del Usuario Clara 
 
@@ -433,7 +440,7 @@ Ocuparemos el WinPEAS para localizar formas de elevación de privilegios, ocupa 
 
 ![paste](./images/39.jpeg)
 
-Esto es una pista ya que la dirección a donde apunta es la pagina de HasPass y dentro de la ruta C:\Users podemos darnos cuenta que el otro usuario es develpment 
+Esto es una pista ya que la dirección a donde apunta es la pagina de HasPass y dentro de la ruta C:\Users podemos darnos cuenta que el otro usuario es development 
 
 ![paste](./images/40.jpeg)
 
@@ -460,7 +467,7 @@ Y ahora si podremos usar evil-winrm para conectarnos
 
 ![paste](./images/45.jpeg)
 
-Ahora somos el usuario develpment y siendo este mismo podremos entrar en la carpeta de C:\DevApp
+Ahora somos el usuario development y siendo este mismo podremos entrar en la carpeta de C:\DevApp
 
 Donde prepárate que toca la escalada de privilegios con conocimiento a bajo nivel
 
@@ -469,16 +476,15 @@ Donde prepárate que toca la escalada de privilegios con conocimiento a bajo niv
 
 Dentro de la carpeta de C:\Devapp encontraremos un ejecutable que se llama MyFirstApp.exe 
 
-![paste](./images/56.jpeg)
+![paste](./images/46.jpeg)
 
 Este ejecutable es el servicio que se expone por el puerto 9999 de la maquina, el cual vimos al principio, en la fase de reconocimiento  
 
 ![paste](./images/47.jpeg)
 
-Como es un binario y si recuerdas podemos ver algunas líneas de texto plano en la cual podremos encontrar si tenemos suerte credenciales o información importante, para facilitarnos las cosas descárgate el ejecutable a tu maquina de atacante, ocupa el comando Download de evil-winrm  
+Es un ejecutable y algunas lineas de codigo pueden ser visibles, y si tenemos suerte, encontrar informacion privilejiada  
 
-
-Ya cuando lo tengas en tu maquina de atacante veamos que información podemos ver, si no encontramos nada lo examinaremos con ghidra 
+Lo descragaremos en nuestra maquina local y revisaremos las lineas de codigo que aun son visibles 
 
 ```bash
 strings MyFirstApp.exe
@@ -494,11 +500,11 @@ Usaremos Ghidra para ver la estructura del ejecutable y cual es su funcionamient
 
 ![paste](./images/49.jpeg)
 
-Usando el buscador de String, buscaremos una cadena de texto `username` que es lo que nos aparece al conectarnos al servicio por el puerto 9999 
+Usando el buscador de String, buscaremos una cadena de texto en especifico: `username` que es lo que nos aparece al conectarnos al servicio por el puerto 9999 
 
 ![paste](./images/50.jpeg)
 
-Una vez lo encuentre esa String que contiene nuestra palabra de `username` procederemos a encontrar la parte del código donde se encuentre esa cadena de texto:
+Una vez lo encuentre esa String o referencia que contiene nuestra palabra de `username` procederemos a encontrar la parte del código donde se encuentre esa cadena de texto:
 
 ![paste](./images/51.jpeg)
 
@@ -506,7 +512,7 @@ Y encontraremos el código principal que nos interesa, el inicio de sección que
 
 ![paste](./images/52.jpeg)
 
-Bien el binario ocupa recv sockets para conectarse y enviar la información al servidor pero, en la unas líneas debajo del input de la  contraseña encontramos la función llamada login 
+Bien el binario ocupa recv sockets para conectarse y enviar la información al servidor pero,unas líneas mas abajo del input de la  contraseña encontramos la función llamada login 
 
 ![paste](./images/53.jpeg)
 
@@ -523,7 +529,7 @@ undefined4 __cdecl _login(char *param_1,void *param_2)
 									User       Passwd
 ```
 
-Dentro del código encontramos lo que parece ser un usuario y contraseña, que no te emociones no nos servirán por ahora, el usuario es correcto pero la contraseña esta hardcode(renombra la variables para que el ejecutable se pueda entender mejor)
+En la funcio de login encontramos el usuario y una contraseña que vimos con el comando de string, la contraseña esta encriptada (renombra la variables para que el ejecutable se pueda entender mejor)
 
 ```c
 User = "alfiansyah";
@@ -637,17 +643,17 @@ Quedando el análisis del código de la siguiente forma(mas entendible la verdad
 
 Bien ya sabemos que que hace la función de _encript1_ y es solamente rotar la posición del carácter 47 posiciones 
 
-## ***encript2 Function
+## ***encript2 Function***
 
-El flujo del programa continua almacenado la contraseña en rot 47 en una variable la cual llamaremos o renombraremos como passwd_rot47, seguido de eso cuenta la longitud de esa cadena de texto que es la contraseña en rot47 y se la pasa a la función de encript2
+El flujo del programa continua almacenado la contraseña en formato rot 47 en una variable la cual llamaremos o renombraremos como passwd_rot47, seguido de eso cuenta la longitud de esa cadena de texto que es la contraseña en rot47 y se la pasa a la función de encript2
 
 ![paste](./images/59.jpeg)
 
-Como todo nos toca hacer renombramiento de variables para entender mejor el código:
+Como sabemos ahora ue contienen esta variables renombraremos las variables para entender mejor el código:
 
 ![paste](./images/60.jpeg)
 
-Analicemos esta función, la cual a simple vista parece tener la misma estructura que la función de rot47, ya que va iterando por cada posición o carácter de la contraseña con formato rot47:
+Analicemos esta función, la cual a simple vista parece tener la misma estructura que la función de encript_1, ya que va iterando por cada posición o carácter de la contraseña con formato rot47:
 
 ## Bucle principal
 ```c
@@ -767,7 +773,7 @@ El código primero:
 - **b** → **y**
 - Los **no-letras** quedan **intactos**
 
-Tienes razón en tu observación. La fórmula `'z' - (position_passwd + 159)` con el manejo de mayúsculas/minúsculas es una implementación (algo compleja) del cifrado Atbash que:
+La fórmula `'z' - (position_passwd + 159)` con el manejo de mayúsculas/minúsculas es una implementación (algo compleja) del cifrado Atbash que:
 
 - Invierte las letras en el alfabeto
 - Preserva el caso (mayúscula/minúscula)
