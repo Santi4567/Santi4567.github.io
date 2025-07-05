@@ -906,7 +906,7 @@ La segunda pcStack_24 tiene un buffer de 100 bytes
 
 ![paste](./images/65.jpg)
 
-Pero con cuidado que solo la variable tiene una protección para que el buffer se desborde(en otras palabras: que podamos echar mas agua para que se desborde del vaso ) la que contiene el FullName 
+Pero con cuidado que solo la variable pcStack_24 tiene una protección para que el buffer no se desborde(en otras palabras: que podamos echar mas agua para que se desborde del vaso ) esta variable es del input FullName
 ## Validaciones encontradas:
 
 ### **Para `pcStack_24` (100 bytes)**:
@@ -916,7 +916,6 @@ Pero con cuidado que solo la variable tiene una protección para que el buffer s
 ```
 
 - **SÍ hay protección**: `strncpy` limita a exactamente 100 bytes
-- **Problema menor**: no garantiza terminador null si la entrada es exactamente 100 chars
 
 ###  **Para `pcStack_20` (80 bytes)**:
 
@@ -925,15 +924,14 @@ Pero con cuidado que solo la variable tiene una protección para que el buffer s
 ```
 
 - **Vulnerable**: `0x50` = 80 bytes, pero el buffer es de 80 bytes
-- **Sin espacio para terminador null**: si la entrada es de 80 chars, no habrá `\0`
 
 ![paste](./images/66.jpeg)
 
-Ahora bien después tenido esta información podemos, el flujo del programa envía estas dos variables a una función llamada  `_SaveCreds` y ojito a lo que tenemos aqui:
+Ahora bien sabiendo esta información podemos, el flujo del programa envía estas dos variables a una función llamada  `_SaveCreds` y ojito a lo que tenemos aqui:
 
 param_1 es la variable de pcStack_20 
 
-### **Vulnerabilidad tipo CRÍTICO**:
+### **Vulnerabilidad**:
 
 ```c
 *strcpy(local*42, param_1);
