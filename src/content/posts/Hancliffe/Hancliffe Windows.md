@@ -906,7 +906,7 @@ La segunda pcStack_24 tiene un buffer de 100 bytes
 
 ![paste](./images/65.jpg)
 
-Pero con cuidado que solo la variable pcStack_24 tiene una protección para que el buffer no se desborde(en otras palabras: que podamos echar mas agua para que se desborde del vaso ) esta variable es del input FullName
+Pero con cuidado que solo la variable pcStack_24 tiene una protección para que el buffer no se desborde(en otras palabras: que podamos echar mas agua para que se desborde del vaso mas adelante tenemos la analogia de la jarra para entender Buffer OverFlow) esta variable es del input FullName
 ## Validaciones encontradas:
 
 ### **Para `pcStack_24` (100 bytes)**:
@@ -961,7 +961,7 @@ Si no sabes lo que es, tenemos la analogía de una jarra de agua
 ### La jarra:
 
 - **Capacidad**: 1 litro de agua
-- **Representa**: Tu buffer de 50 bytes
+- **Representa**: El buffer de 50 bytes
 ### El agua:
 
 - **Lo que echas**: puede ser cualquier cantidad
@@ -995,7 +995,7 @@ El agua cabe perfectamente, no hay problema.
 
 # Preparación para el BoF
 
-Que solo usad Linux, mal por que ocuparemos Windows y xdbg x32 para realizar las pruebas del BoF, entonces comparte es .exe a tu maquina Windows, y verifica que puedas acceder a el:
+Que solo usas Linux, mal por que ocuparemos Windows y xdbg x32 para realizar las pruebas del BoF, entonces comparte es .exe a tu maquina Windows, y verifica que puedas acceder a el:
 
 ![paste](./images/69.jpeg)
 
@@ -1003,14 +1003,15 @@ También debes de desactivar el DEP (Disable Data Execution) de Windows, en el m
 
 ![paste](./images/70.jpeg)
 
-Ahora si con esto lo ejecutaremos dentro de xdbg x32, es **_importante recordar que cada que iniciemos el programa se cambiara el puerto_** 
+Ahora si, con esto lo ejecutaremos dentro de xdbg x32, es **_importante recordar que cada que iniciemos el programa se cambiara el puerto_** 
 
 
 # Sobrescribiendo el EIP
 
-Al abrir el ejecutable MyFirstApp.exe este se quedara congelado por asi decirlo, debemos de dar varias veces en la fechita señalando hacia la izquierda, hasta que la aplicación nos muestre el puerto  por el cual se esta ejecutando el servicio(en la terminal CMD) 
+Al abrir el ejecutable MyFirstApp.exe este se quedara congelado por asi decirlo, debemos de dar varias veces en la fechita señalando hacia la derecha, hasta que la aplicación nos muestre el puerto  por el cual se esta ejecutando el servicio(en la terminal CMD) 
 
-También veremos el valor de EIP 
+Y tendremos en la mira el valor del EIP si este se puede sobreecribir, podemos manejar el flujo del programa
+
 ## **EIP = Extended Instruction Pointer**
 
 ### En pocas palabras:
@@ -1030,7 +1031,7 @@ También veremos el valor de EIP
 - **Se actualiza automáticamente** después de cada instrucción
 - **Controla el flujo** del programa
 
-Con esto explicado lo intentaremos es que al acontecer el buffer overflow se sobrescriba el EIP, y si logramos sobrescribir el EIP el controlamos el programa:
+Con esto explicado ocacionaremos el buffer overflow y probar sobreescribir en EIP, y si logramos sobrescribir el EIP, controlamos el programa:
 
 ![paste](./images/71.jpeg)
 
@@ -1038,17 +1039,18 @@ Prueba rápida con el servicio ejecutándose en tu maquina Windows, conéctate d
 
 Bingo
 
-Podemos sobrescribir el EIP por ende podemos controlar el flujo del programa 
+El valor de EIP a cabiando a 41, que el 41 es el valor de "A" en hexadecimal, bien el EIP se sobreescribe
 
 ![paste](./images/72.jpg)
 
 
-Recuerda reiniciar el programa cada vez que lo rompas con el Buffer OverFlow 
+(Recuerda reiniciar el programa cada vez que lo rompas con el Buffer OverFlow)
 
 ![paste](./images/73.jpeg)
 ## Junk "A" & EIP
 
-Y sabemos que tenemos el control del programa lo que tenemos que hacer es saber el numero exacto de A que necesitamos poner para llegar a el EIP y ejecutar alguna instrucción para automatizar las cosa usaremos un script de Python para enviar el pyload 
+Sabemos que tenemos el control del programa lo que tenemos que hacer es saber el numero exacto de A que necesitamos poner para llegar a el EIP y ejecutar alguna instrucción a bajo nivel
+Para automatizar las cosa usaremos un script de Python para enviar el buffer y nuestro shellcode
 
 
 ```python
@@ -1129,6 +1131,7 @@ Buscando ese patrón con la herramienta de metasploit
 
 
 eso quiere decir que necesitamos poner 66 "A" para llenar el buffer 
+
 ![[74.png]]
 
 Con esto modificaremos de nuevo la variable de payload con los siguientes valores para verificar que después de 66 "A" podemos  escribir en el EIP cuatro "B", esto es muy importante ya que si no lo hacemos, no sabremos donde poner la instrucción que nosotros queramos ejecutar despues del Junk de "A"´s
@@ -1140,11 +1143,11 @@ payload = b"A" * offset + b"B" * 4 + b"C"*100
 
 ejecutamos de nuevo el script (recuerda reiniciar el programa en tu maquina windows)
 
-Ojo que si es cierto, despues de 66 "A" llenamos el buffer y despues estan nuestra "B" (la B en hexadecimal es 42), pero tenemos un problema, pusimos 100 "C" y solo nos esta mostrando 10
+Ojo que si es cierto, despues de 66 "A" llenamos el buffer y despues estan nuestras 4 "B" (la B en hexadecimal es 42), pero tenemos un problema, pusimos 100 "C" y solo nos esta mostrando 10
 
 ![[75.png]]
 
-Bien no tenemos espacio para inyectar nuestro (ojo al comunismo madre mía ) shellcode, y que se hace en este caso, irnos, buscar otra forma para elevar privilegios, no amigo mío el plan es el siguiente:
+No tenemos espacio para inyectar nuestro (ojo al comunismo madre mía ) shellcode, y que se hace en este caso, irnos, buscar otra forma para elevar privilegios, no amigo mío el plan es el siguiente:
 
 llenamos el buffer -> tenemos que hacer que EIP apunte al ESP (ESP tiene la 025DFF1C como dirección de memoria) y este apunte al inicio de nuestro buffer, pero no podemos poner la dirección de ESP directamente en el EIP necesitamos un héroe, necesitamos un jmp_esp   
 
